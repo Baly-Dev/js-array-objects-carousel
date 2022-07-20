@@ -71,14 +71,41 @@ images.forEach((e) => {
 slides[slider].classList.remove('d-none')
 btnPrev.classList.add('invisible')
 
+// show the first active gallery item
+galleryItems[slider].classList.add('border-3')
+
+// bonusu 1
+for (let i = 0; i < galleryItems.length; i++){
+    galleryItems[i].addEventListener('click', () => {
+        slides[slider].classList.add('d-none')
+        slider = i
+        slides[slider].classList.remove('d-none')
+
+        btnPrev.classList.remove('invisible')
+        btnNext.classList.remove('invisible')
+
+        if(slider >= slides.length -1 ){
+            btnNext.classList.add('invisible')
+        }
+
+        if(slider <= 0){
+            btnPrev.classList.add('invisible')
+        }
+    })
+}
+
 // setp forward
 btnNext.addEventListener('click', () => {
+
+    // remove the first active gallery item
+    galleryItems[slider].classList.remove('border-3')
 
     slides[slider].classList.add('d-none')
     slider++
     slides[slider].classList.remove('d-none')
-    console.log(slider)
-    console.log(slides.length)
+
+    // show the current active gallery item
+    galleryItems[slider].classList.add('border-3')
 
     // hide btnNext if the slider lenght is equal to slides lenght
     if(slider >= slides.length -1 ){
@@ -92,11 +119,18 @@ btnNext.addEventListener('click', () => {
 // setp backward
 btnPrev.addEventListener('click', () => {
 
+    // remove the first active gallery item
+    galleryItems[slider].classList.remove('border-3')
+
+    // show btnNext
+    btnNext.classList.remove('invisible')
+
     slides[slider].classList.add('d-none')
     slider--
     slides[slider].classList.remove('d-none')
-    console.log(slider)
-    console.log(slides.length)
+
+    // show the current active gallery item
+    galleryItems[slider].classList.add('border-3')
 
      // hide btnPrev if the slider <= 0
     if(slider <= 0){
