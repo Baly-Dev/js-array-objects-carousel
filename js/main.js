@@ -74,7 +74,7 @@ btnPrev.classList.add('invisible')
 // show the first active gallery item
 galleryItems[slider].classList.add('border-3')
 
-// bonusu 1
+// change position based gallery items click
 for (let i = 0; i < galleryItems.length; i++){
     galleryItems[i].addEventListener('click', () => {
         slides[slider].classList.add('d-none')
@@ -96,7 +96,25 @@ for (let i = 0; i < galleryItems.length; i++){
 
 // setp forward
 btnNext.addEventListener('click', () => {
+    slideShowForward()
+})
 
+// setp backward
+btnPrev.addEventListener('click', () => {
+    slideShowBackward()
+})
+
+// auto play
+const autoPlay = setInterval(() => {
+    slideShowForward()
+}, 3000)
+
+setTimeout(() => {
+    clearInterval(autoPlay)
+}, 3000 * (galleryItems.length -1))
+
+
+function slideShowForward(){
     // remove the first active gallery item
     galleryItems[slider].classList.remove('border-3')
 
@@ -114,12 +132,10 @@ btnNext.addEventListener('click', () => {
 
     // show btnPrev
     btnPrev.classList.remove('invisible')
-})
+}
 
-// setp backward
-btnPrev.addEventListener('click', () => {
-
-    // remove the first active gallery item
+function slideShowBackward(){
+   // remove the first active gallery item
     galleryItems[slider].classList.remove('border-3')
 
     // show btnNext
@@ -136,4 +152,4 @@ btnPrev.addEventListener('click', () => {
     if(slider <= 0){
         btnPrev.classList.add('invisible')
     }
-})
+}
