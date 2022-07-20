@@ -39,7 +39,7 @@ let slider = 0
 const slides = []
 const galleryItems = []
 
-// create all carousel items
+// create all carousel and gallery items
 images.forEach((e) => {
 
     // create carousel item
@@ -77,9 +77,16 @@ galleryItems[slider].classList.add('border-3')
 // change position based gallery items click
 for (let i = 0; i < galleryItems.length; i++){
     galleryItems[i].addEventListener('click', () => {
+        
+        // remove the first active gallery item
+        galleryItems[slider].classList.remove('border-3')
+
         slides[slider].classList.add('d-none')
         slider = i
         slides[slider].classList.remove('d-none')
+
+        // show the current active gallery item
+        galleryItems[i].classList.add('border-3')
 
         btnPrev.classList.remove('invisible')
         btnNext.classList.remove('invisible')
@@ -105,12 +112,10 @@ btnPrev.addEventListener('click', () => {
 })
 
 // auto play
-let counter = 0
 const autoPlay = setInterval(() => {
-    counter ++
     slideShowForward()
 
-    if (counter == galleryItems.length - 1){
+    if (slider == galleryItems.length - 1){
         clearInterval(autoPlay)
     }
 }, 3000)
