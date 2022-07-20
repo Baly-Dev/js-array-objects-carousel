@@ -105,15 +105,17 @@ btnPrev.addEventListener('click', () => {
 })
 
 // auto play
+let counter = 0
 const autoPlay = setInterval(() => {
+    counter ++
     slideShowForward()
+
+    if (counter == galleryItems.length - 1){
+        clearInterval(autoPlay)
+    }
 }, 3000)
 
-setTimeout(() => {
-    clearInterval(autoPlay)
-}, 3000 * (galleryItems.length -1))
-
-
+// setp forward function
 function slideShowForward(){
     // remove the first active gallery item
     galleryItems[slider].classList.remove('border-3')
@@ -134,6 +136,7 @@ function slideShowForward(){
     btnPrev.classList.remove('invisible')
 }
 
+// setp backward function
 function slideShowBackward(){
    // remove the first active gallery item
     galleryItems[slider].classList.remove('border-3')
